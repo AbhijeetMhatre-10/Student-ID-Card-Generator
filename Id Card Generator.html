@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ID Card Generator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"
+    />
+    <link rel="stylesheet" href="Id Card Generator.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark px-3 d-flex align-items-center">
+      <a class="navbar-brand fw-semibold" href="#">ID Card Generator</a>
+
+      <div id="authArea" class="ms-auto d-flex align-items-center gap-2">
+        <button id="signInBtn" class="btn btn-outline-light btn-sm">
+          Sign in with Google
+        </button>
+
+        <div id="userBadge" class="d-none align-items-center gap-2 text-white">
+          <span
+            class="rounded-circle bg-light text-dark d-inline-flex align-items-center justify-content-center"
+            style="width: 32px; height: 32px; font-weight: 700"
+          >
+            @
+          </span>
+          <span id="userEmail" class="small fw-semibold"></span>
+
+          
+          <button id="logoutBtn" class="btn btn-sm btn-info">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <!-- Input Section -->
+      <div class="input-container p-4 border rounded shadow-sm">
+        <h1 class="text-center pb-2 container-main-heading">
+          Fill Your Details
+        </h1>
+
+        <div class="mb-3">
+          <label for="studentName" class="form-label">Name</label>
+          <input
+            id="studentName"
+            type="text"
+            class="form-control"
+            placeholder="Your Name"
+            oninput="
+              this.value = this.value.toUpperCase().replace(/[^A-Z ]/g, '')
+            "
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="branch" class="form-label">Branch</label>
+          <select id="branch" class="form-control">
+            <option value="">-- Select Branch --</option>
+            <option value="Artificial Intelligence & Data Science">
+              Artificial Intelligence and Data Science
+            </option>
+            <option value="Mechatronics Engineering">
+              Mechatronics Engineering
+            </option>
+            <option value="Electrical Engineering">
+              Electrical Engineering
+            </option>
+            <option value="Civil and Infrastructure Engineering">
+              Civil and Infrastructure Engineering
+            </option>
+            <option value="Food Technology and Management">
+              Food Technology and Management
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="enrollmentNo" class="form-label">Enrollment No.</label>
+          <input
+            id="enrollmentNo"
+            type="text"
+            class="form-control"
+            placeholder="Your PRN"
+            maxlength="14"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="admissionYear" class="form-label">Admission Year</label>
+          <input
+            id="admissionYear"
+            type="text"
+            class="form-control"
+            placeholder="2022-23"
+            maxlength="7"
+            oninput="formatAdmissionYear(this)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Permanent Address</label>
+          <input
+            id="address"
+            type="text"
+            class="form-control"
+            placeholder="Your Address"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="uid" class="form-label">UID No.</label>
+          <input
+            id="uid"
+            type="text"
+            class="form-control"
+            placeholder="1234 1234 1234"
+            maxlength="14"
+            oninput="formatUID(this)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="dob" class="form-label">Date of Birth</label>
+          <input
+            id="dob"
+            type="date"
+            class="form-control"
+            oninput="validateAge(this)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="bloodGroup" class="form-label">Blood Group</label>
+          <input
+            id="bloodGroup"
+            type="text"
+            class="form-control"
+            placeholder="Eg: A+"
+            oninput="
+              this.value = this.value.toUpperCase().replace(/[^ABO\+\-]/g, '')
+            "
+            maxlength="3"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="mobileStudent" class="form-label">Mobile No. (S)</label>
+          <input
+            id="mobileStudent"
+            type="tel"
+            class="form-control"
+            placeholder="98765 43210"
+            maxlength="11"
+            oninput="formatMobile(this)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="mobileParent" class="form-label">Mobile No. (P)</label>
+          <input
+            id="mobileParent"
+            type="tel"
+            class="form-control"
+            placeholder="98765 43210"
+            maxlength="11"
+            oninput="formatMobile(this)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Mail ID</label>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            placeholder="Eg: abc@gmail.com"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="profilePic" class="form-label"
+            >Upload Profile Picture</label
+          >
+          <input
+            id="profilePic"
+            type="file"
+            class="form-control"
+            accept="image/*"
+          />
+        </div>
+      </div>
+
+      <!-- Output Section -->
+      <div class="output-container">
+        <div class="id-card-wrapper">
+          <div class="id-card front" id="frontSide">
+            <div class="div-f-1">
+              <img
+                class="college-logo"
+                crossorigin="anonymous"
+                alt="logo"
+                src="https://res.cloudinary.com/dsxvmhffb/image/upload/v1762340498/dte-logo_x3hmjg.jpg"
+              />
+              <div class="div-f-1-title-container">
+                <h1 class="college-name">LSPGCoER</h1>
+                <p class="college-full-name">
+                  Loknete Shamrao Peje Government College of Engineering
+                  Ratnagiri
+                </p>
+              </div>
+            </div>
+
+            <div class="div-f-2">
+              <img
+                class="profile-picture"
+                crossorigin="anonymous"
+                src="https://res.cloudinary.com/dsxvmhffb/image/upload/v1762546509/images_wd9doi.png"
+                alt="Profile Picture"
+              />
+            </div>
+            <div class="div-f-3">
+              <h1 class="name" id="outName">YOUR NAME</h1>
+              <h3 class="degree">B.TECH.</h3>
+              <h3 class="branch" id="outBranch">YOUR BRANCH</h3>
+              <h3 class="enrollment-no">
+                Enrollment No.: <span id="outEnroll">Your PRN</span>
+              </h3>
+              <h3 class="admission-year">
+                Admission Year: <span id="outYear">20XX-XX</span>
+              </h3>
+            </div>
+
+            <div></div>
+          </div>
+
+          <div class="id-card back" id="backSide">
+            <div class="div-b-1">
+              <h1>Near Thiba Palace, Ratnagiri - 415612. (MH.)</h1>
+              <p class="div-b-1-contact">
+                office.gcoeratnagiri@dtemaharashtra.gov.in
+              </p>
+              <p class="div-b-1-contact">
+                principal.gcoeratnagiri@dtemaharashtra.gov.in
+              </p>
+              <div class="d-flex justify-content-between">
+                <p class="div-b-1-contact">Web Site: www.gcoer.org</p>
+                <p class="div-b-1-contact">Mobile No. 8793284358</p>
+              </div>
+              <div class="div-b-1-info">
+                <p>Year of Establishment: 2021</p>
+                <p>AICTE Permanent ID: 1-9442079401</p>
+                <p>DTE Code: 3042</p>
+              </div>
+            </div>
+
+            <div class="div-b-2">
+              <h1>
+                Permanent Address : <span id="outAddress">Your Address</span>
+              </h1>
+              <h1>UID No. : <span id="outUid">Aadhar Card No.</span></h1>
+              <h1>Date of Birth : <span id="outDob"></span></h1>
+              <h1>Blood Group : <span id="outBlood"></span></h1>
+              <h1>Mobile No. (S) : <span id="outMobileS"></span></h1>
+              <h1>Mobile No. (P) : <span id="outMobileP"></span></h1>
+              <h1>Mail ID : <span id="outEmail"></span></h1>
+            </div>
+
+            <div class="div-b-3">
+              <h1>If Found, Please Return to College</h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flip Button -->
+        <button id="flipBtn" class="btn btn-primary mt-4 flip-button">
+          Flip Card
+        </button>
+
+        <button onclick="handleDownload()" id="downloadBtn" class="btn btn-success mt-3 download-button">
+          Download
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="errorMsg"
+      style="
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: red;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: none;
+        font-size: 14px;
+        z-index: 999;
+      "
+    >
+      Please login first!
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+
+    <script src="Id Card Generator.js"></script>
+
+    <!-- Image Crop Modal -->
+    <div class="modal fade" id="cropModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Crop Profile Picture</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <img
+              id="cropImage"
+              style="max-width: 100%; display: block; margin: auto"
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button id="rotateLeft" class="btn btn-secondary">
+              Rotate Left
+            </button>
+            <button id="rotateRight" class="btn btn-secondary">
+              Rotate Right
+            </button>
+
+            <button id="cropDone" class="btn btn-success">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

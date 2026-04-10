@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=Jost:wght@400;500;700&family=Lora:wght@400;600;700&display=swap');
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0A3D62;
+}
+
+/* Navbar */
+.navbar {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    background-color: #0A3D62;
+}
+
+.navbar-brand {
+    color: #ffffff;
+}
+
+/* Main container */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 15px;
+}
+
+/* Shared container styles */
+.input-container,
+.output-container {
+    background-color: #EEF5F9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.output-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-main-heading {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Poppins';
+}
+
+.id-card-wrapper {
+    width: clamp(250px, 78vw, 380px);
+    aspect-ratio: 54 / 86;
+    perspective: 1000px;
+    /* enables 3D flip effect */
+    position: relative;
+    margin-top: clamp(12px, 2vw, 20px);
+}
+
+/* ID Card Container */
+.id-card {
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    transition: transform 0.8s ease;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+}
+
+/* Front side visible by default */
+.id-card.front {
+    background: #f5f7fa;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Back side initially hidden */
+.id-card.back {
+    background: #f5f7fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transform: rotateY(180deg);
+}
+
+/* Flipping*/
+.id-card-wrapper.flipped .front {
+    transform: rotateY(180deg);
+}
+
+.id-card-wrapper.flipped .back {
+    transform: rotateY(360deg);
+}
+
+/* Front Side*/
+/*  Header Section  */
+.div-f-1 {
+    width: 100%;
+    background: #15204b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(8px, 2vw, 14px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 3px solid #ffffff;
+}
+
+.college-logo {
+    height: clamp(55px, 15vw, 85px);
+    width: auto;
+    object-fit: contain;
+    margin-left: clamp(8px, 2vw, 12px);
+}
+
+.div-f-1-title-container {
+    flex: 1;
+    text-align: center;
+    margin-left: clamp(8px, 2vw, 12px);
+}
+
+.college-name {
+    color: #ffffff;
+    font-size: clamp(20px, 5.5vw, 36px);
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 2px;
+    letter-spacing: 1.5px;
+    font-family: 'Lora';
+}
+
+.college-full-name {
+    color: #e3e3e3;
+    font-size: clamp(11px, 2vw, 16px);
+    font-weight: 500;
+    padding-top: 2px;
+    font-family: 'Poppins';
+    padding-bottom: 3px;
+}
+
+/*  Profile Picture Section */
+.div-f-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: clamp(90px, 25vw, 130px);
+    /* pushes content below header */
+    padding: clamp(10px, 2.5vw, 15px);
+}
+
+.profile-picture {
+    margin-top: 20px;
+    height: clamp(110px, 23vw, 180px);
+    width: clamp(110px, 25vw, 180px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #192553;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- INFO SECTION ---------- */
+.div-f-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 90%;
+    margin-top: 8px;
+    padding-bottom: clamp(8px, 2vw, 14px);
+}
+
+.name {
+    text-align: center;
+    font-size: clamp(16px, 3.2vw, 26px);
+    font-weight: 700;
+    color: rgb(25, 37, 83);
+    padding-bottom: 10px;
+    font-family: 'Antonio';
+}
+
+.degree,
+.branch,
+.enrollment-no,
+.admission-year {
+    text-align: center;
+    font-size: clamp(12px, 2.5vw, 20px);
+    font-weight: 500;
+    color: rgb(25, 37, 83);
+    font-family: 'Poppins';
+    padding-bottom: 4px;
+}
+
+.branch {
+    font-weight: 700;
+    padding-bottom: 10px;
+    font-family: "Roboto";
+}
+
+/* FOOTER BAR */
+.id-card.front ::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    background: #192553;
+    border-top: 1px solid #fff;
+}
+
+/* Back Side */
+/* Back side content */
+.div-b-1 {
+    width: 100%;
+    padding: 10px;
+    background-color: #192553;
+    color: #ffffff;
+    border-bottom: 5px solid orange;
+    font-family: 'Montserrat';
+    letter-spacing: 1px;
+}
+
+.div-b-1 h1 {
+    font-size: clamp(8px, 2vw, 14px);
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+.div-b-1-contact {
+    font-size: clamp(8px, 2vw, 12px);
+    text-align: center;
+}
+
+.div-b-1-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.div-b-1-info p {
+    font-size: clamp(5px, 1.2vw, 8px);
+    padding-top: 2px;
+}
+
+.div-b-2 {
+    width: 90%;
+    padding: 10px;
+}
+
+.div-b-2 h1,
+h1 span {
+    text-align: left;
+    font-size: clamp(12px, 2.5vw, 20px);
+    font-weight: 500;
+    color: rgb(25, 37, 83);
+    font-family: 'Poppins';
+    padding-bottom: 10px;
+}
+
+.div-b-3 {
+    width: 100%;
+    background-color: #192553;
+    padding: 20px;
+}
+
+.div-b-3 h1 {
+    text-align: center;
+    color: #e3e3e3;
+    font-size: clamp(11px, 2vw, 16px);
+    font-weight: 500;
+    font-family: 'Poppins';
+}
+
+.flip-button:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.download-button:hover {
+    transform: scale(1.1);
+}
+
+#cropImage {
+    max-height: 70vh;
+}
+
+/* Desktop layout */
+@media screen and (min-width: 992px) {
+    .main-container {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .input-container,
+    .output-container {
+        width: 45%;
+        max-height: 90vh;
+        overflow: scroll;
+    }
+}
